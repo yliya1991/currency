@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate</title>
+     <style>
+        table, th, td{
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+<table style="width:50%" >
+    <p></p>
+    <tr bgcolor="#ADFF2F" >
+        <th>id</th>
+        <th>Дата создания </th>
+        <th>Курс</th>
+        <th>Источник</th>
+        <th>Валюта</th>
+        <th>Продажа/покупка</th>
+    </tr>
+
+{% for rate in rates %}
+    <tr>
+        <td>{{ rate.id }}</td>
+        <td>{{ rate.created }}</td>
+        <td>{{ rate.amount }}</td>
+        <td>{{ rate.get_source_display }}</td>
+        <td>{{ rate.get_currency_type_display }}</td>
+        <td>{{ rate.get_type_display }}</td>
+    </tr>
+
+
+    {% endfor %}
+</table>
+
+</body>
