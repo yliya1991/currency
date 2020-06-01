@@ -139,7 +139,6 @@ def parse_vkurse():
                 type=mch.RATE_TYPE_BUY,
             )
 
-        # sale
         amount = to_decimal(response[item]['sale'])
         last = Rate.objects.filter(
             source=mch.SOURCE_VKURSE,
@@ -158,75 +157,71 @@ def parse_vkurse():
 
 @shared_task
 def parse_bestrate():
-    from rate.models import Rate
 
     resp = req.get("https://obmen.dp.ua/")
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     results = soup.find_all('div', attrs={'class': 'currencies__block-num'})
-    rate_list = []
-    for result in results:
-        rate = result.text
-        rate_list.append(rate)
+    rate_list = [result.text for result in results]
 
     amount = rate_list[0]
     last = Rate.objects.filter(
         source=mch.SOURCE_OBMENNIKUA,
-        currency_type=1,
-        type=2,
+        currency_type=mch.SOURCE_TYPE_USD,
+        type=mch.RATE_TYPE_BUY,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_OBMENNIKUA,
-            currency_type=1,
-            type=2,
+            currency_type=mch.SOURCE_TYPE_USD,
+            type=mch.RATE_TYPE_BUY,
         )
 
     amount = rate_list[1]
     last = Rate.objects.filter(
         source=mch.SOURCE_OBMENNIKUA,
-        currency_type=1,
-        type=1,
+        currency_type=mch.SOURCE_TYPE_USD,
+        type=mch.RATE_TYPE_SALE,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_OBMENNIKUA,
-            currency_type=1,
-            type=1,
+            currency_type=mch.SOURCE_TYPE_USD,
+            type=mch.RATE_TYPE_SALE,
         )
 
     amount = rate_list[2]
     last = Rate.objects.filter(
         source=mch.SOURCE_OBMENNIKUA,
-        currency_type=2,
-        type=1,
+        currency_type=mch.SOURCE_TYPE_EUR,
+        type=mch.RATE_TYPE_SALE,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_OBMENNIKUA,
-            currency_type=2,
-            type=1,
+            currency_type=mch.SOURCE_TYPE_EUR,
+            type=mch.RATE_TYPE_SALE,
         )
 
     amount = rate_list[3]
     last = Rate.objects.filter(
         source=mch.SOURCE_OBMENNIKUA,
-        currency_type=2,
-        type=2,
+        currency_type=mch.SOURCE_TYPE_EUR,
+        type=mch.RATE_TYPE_BUY,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_OBMENNIKUA,
-            currency_type=2,
-            type=2,
+            currency_type=mch.SOURCE_TYPE_EUR,
+            type=mch.RATE_TYPE_BUY,
         )
 
 
@@ -236,70 +231,67 @@ def parse_alfabank():
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     results = soup.find_all('div', attrs={'class': 'currency-item-number'})
-    rate_list = []
-    for result in results:
-        name = result.text
-        rate_list.append(name)
+    rate_list = [result.text for result in results]
 
     amount = rate_list[0]
     last = Rate.objects.filter(
         source=mch.SOURCE_ALFABANK,
-        currency_type=1,
-        type=2,
+        currency_type=mch.SOURCE_TYPE_USD,
+        type=mch.RATE_TYPE_BUY,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_ALFABANK,
-            currency_type=1,
-            type=2,
+            currency_type=mch.SOURCE_TYPE_USD,
+            type=mch.RATE_TYPE_BUY,
         )
 
     # USD_sale
     amount = rate_list[1]
     last = Rate.objects.filter(
         source=mch.SOURCE_ALFABANK,
-        currency_type=1,
-        type=1,
+        currency_type=mch.SOURCE_TYPE_USD,
+        type=mch.RATE_TYPE_SALE,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_ALFABANK,
-            currency_type=1,
-            type=1,
+            currency_type=mch.SOURCE_TYPE_USD,
+            type=mch.RATE_TYPE_SALE,
         )
 
     amount = rate_list[2]
     last = Rate.objects.filter(
         source=mch.SOURCE_ALFABANK,
-        currency_type=2,
-        type=2,
+        currency_type=mch.SOURCE_TYPE_EUR,
+        type=mch.RATE_TYPE_BUY,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_ALFABANK,
-            currency_type=2,
-            type=2,
+            currency_type=mch.SOURCE_TYPE_EUR,
+            type=mch.RATE_TYPE_BUY,
         )
 
     amount = rate_list[1]
     last = Rate.objects.filter(
         source=mch.SOURCE_ALFABANK,
-        currency_type=2,
-        type=1,
+        currency_type=mch.SOURCE_TYPE_EUR,
+        type=mch.RATE_TYPE_SALE,
     ).last()
 
     if last is None or last.amount != amount:
         Rate.objects.create(
             amount=amount,
             source=mch.SOURCE_ALFABANK,
-            currency_type=2,
-            type=1,
+            currency_type=mch.SOURCE_TYPE_EUR,
+            type=mch.RATE_TYPE_SALE,
         )
 
 
