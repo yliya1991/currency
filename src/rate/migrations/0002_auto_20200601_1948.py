@@ -18,6 +18,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rate',
             name='source',
-            field=models.PositiveSmallIntegerField(choices=[(1, 'PrivatBank'), (2, 'MonoBank'), (3, 'Vkurse'), (4, 'ObmennikUa'), (5, 'Alfabank'), (6, 'Taskombank')]),
+            field=models.PositiveSmallIntegerField(
+                choices=[(1, 'PrivatBank'), (2, 'MonoBank'),
+                                                            (3, 'Vkurse'), (4, 'ObmennikUa'), (5, 'Alfabank'),
+                         (6, 'Taskombank')]),
         ),
     ]
