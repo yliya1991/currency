@@ -3,7 +3,6 @@
 {% block title %}Rates{% endblock title %}
 
 {% block content %}
-
 <table  class="table table-sm table-dark" >
     <p></p>
     <tr bgcolor="#2E8B57" >
@@ -14,20 +13,19 @@
         <th>Валюта</th>
         <th>Продажа/покупка</th>
     </tr>
+</thead>
 
-{% for rate in rates %}
+    <tbody>
+  {% for rate in object_list %}
     <tr>
-        <td>{{ rate.id }}</td>
+    <th scope="row">{{ rate.id }}</td>
         <td>{{ rate.created }}</td>
         <td>{{ rate.amount }}</td>
         <td>{{ rate.get_source_display }}</td>
         <td>{{ rate.get_currency_type_display }}</td>
         <td>{{ rate.get_type_display }}</td>
     </tr>
-
-
-    {% endfor %}
+   {% endfor %}
+   </tbody>
 </table>
-
-</body>
 {% endblock content %}

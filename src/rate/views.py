@@ -1,13 +1,9 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+
 
 from rate.models import Rate
 
 
-def rate_all(request):
-    rate = Rate.objects.all()
-    count = rate.count()
-    return render(request, 'list_all.html',
-                  context={'rates': rate,
-                           'count': count
-                           }
-                  )
+class RateList(ListView):
+    queryset = Rate.objects.all()
+    template_name = 'list_all.html'

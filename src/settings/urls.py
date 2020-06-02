@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include # noqa
 from django.views.generic import TemplateView
+from django.conf import settings
 
-from rate import views as t_views # noqa
 
 urlpatterns = [
     path('admin/', admin.site.urls),
