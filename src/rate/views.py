@@ -4,7 +4,7 @@ from django.core.cache import cache
 from django.http import HttpResponse
 from django.views.generic import ListView, TemplateView, View
 
-from rate import model_choices as mch
+import rate.model_choices as mch
 from rate.models import Rate
 from rate.utils import display
 from rate.utils import generate_rate_cache_key
@@ -135,7 +135,7 @@ class LatestRate(TemplateView):
                         rate_dict = {
                             'currency_type': rate.currency_type,
                             'source': rate.source,
-                            'amount': rate.sale,
+                            'amount': rate.amount,
                             'created': rate.created,
                         }
                         rates.append(rate_dict)

@@ -9,10 +9,10 @@
       <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">Date</th>
-      <th scope="col">Rate</th>
+      <th scope="col">Amount</th>
       <th scope="col">Source</th>
       <th scope="col">Currency</th>
-      <th scope="col">Rate type</th>
+      <th scope="col">Type</th>
     </tr>
   </thead>
 
@@ -21,11 +21,11 @@
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{ rate.id }}</td>
-      <td>{{  rate.created }}</td>
-      <td>{{  rate.rate }}</td>
+      <td>{{ rate.created }}</td>
+      <td>{{ rate.amount }}</td>
       <td>{{ rate.get_source_display }}</td>
       <td>{{ rate.get_currency_type_display }}</td>
-      <td>{{ rate.get_rate_type_display }}</td>
+      <td>{{ rate.get_type_display }}</td>
     </tr>
   {% endfor %}
   </tbody>
