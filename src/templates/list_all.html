@@ -3,8 +3,13 @@
 {% block title %}Rates{% endblock title %}
 
 {% block content %}
+<br>
+<a href="{% url 'rate:download-csv' %}">Download csv</a>
+<a href="{% url 'rate:download-xlsx' %}">Download xlsx</a>
 <table  class="table table-sm table-dark" >
-    <p></p>
+    <br><br>
+    <table class = "table">
+    <thead class="thead-dark">
     <tr bgcolor="#2E8B57" >
         <th>id</th>
         <th>Дата создания </th>
@@ -18,12 +23,12 @@
     <tbody>
   {% for rate in object_list %}
     <tr>
-    <th scope="row">{{ rate.id }}</td>
+    <th scope="row">{{ forloop.counter }}</td>
         <td>{{ rate.created }}</td>
         <td>{{ rate.amount }}</td>
-        <td>{{ rate.get_source_display }}</td>
-        <td>{{ rate.get_currency_type_display }}</td>
-        <td>{{ rate.get_type_display }}</td>
+        <td>{{ rate.get_source_display|title }}</td>
+        <td>{{ rate.get_currency_type_display|upper }}</td>
+        <td>{{ rate.get_type_display|title }}</td>
     </tr>
    {% endfor %}
    </tbody>

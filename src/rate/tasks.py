@@ -2,13 +2,14 @@ from bs4 import BeautifulSoup
 
 from celery import shared_task
 
-from rate import model_choices as mch
-from rate.utils import to_decimal
+from models import model_choices as mch
 
 import requests
 import requests as req
 
-from rate.models import Rate # noqa
+from .models import Rate
+
+from .utils import to_decimal # noqa
 
 
 @shared_task
