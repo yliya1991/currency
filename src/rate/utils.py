@@ -3,7 +3,7 @@ from datetime import datetime
 
 from decimal import Decimal # noqa
 
-from rate.models import Rate
+#from rate.models import Rate
 
 
 def save_rate_data(source, rate_kwargs):
