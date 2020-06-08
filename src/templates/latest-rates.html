@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Latest Rates{% endblock title %}
+
+{% block content %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">id</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Source</th>
+      <th scope="col">Currency</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for rate in object_list %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ rate.id }}</td>
+      <td>{{ rate.created }}</td>
+      <td>{{ rate.amount }}</td>
+      <td>{{ rate.get_source_display }}</td>
+      <td>{{ rate.get_currency_type_display }}</td>
+      <td>{{ rate.get_type_display }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
