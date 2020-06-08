@@ -1,3 +1,5 @@
+{% load active_tab %}
+
 <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'index' %}">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -7,13 +9,15 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+            <li class="nav-item {{ request.path|active:'index' }}">
                 <a class="nav-link" href="{% url 'index' %}">Home</a>
             </li>
-            <li class="nav-item {% if request.path == '/rate/list/' %}active{% endif %}">
+            <li class="nav-item {{ request.path|active:'rate:list' }}">
                 <a class="nav-link" href="{% url 'rate:list' %}">Rates</a>
             </li>
-
+              <li class="nav-item {% url 'rate:latest-rates' as latest_rate_url %}{% if request.path == latest_rate_url %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'rate:latest-rates' %}">Latest Rates</a>
+              </li>
             {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">My Profile</a>
