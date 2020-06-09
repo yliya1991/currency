@@ -17,7 +17,7 @@ class Rate(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.rate = to_decimal(self.rate)
+        self.amount = to_decimal(self.amount)
 
     def get_date(self):
         return f'{self.created.astimezone(tz).strftime("%d.%m.%Y %H:%M")}'
