@@ -11,9 +11,6 @@ from rate.utils import generate_rate_cache_key
 
 import xlsxwriter
 
-from django.shortcuts import render_to_response, render
-from django.template import RequestContext
-
 
 class RateList(ListView):
     queryset = Rate.objects.all()
