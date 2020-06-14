@@ -147,7 +147,8 @@ class LatestRate(TemplateView):
                     rates.append(rate)
         context["rates"] = rates
         return context
-   
+
+
 class EditRate(UserPassesTestMixin, UpdateView):
     template_name = 'edit-rate.html'
     model = Rate
