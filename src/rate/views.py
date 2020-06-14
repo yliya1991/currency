@@ -1,5 +1,6 @@
 import csv
 
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.urls import reverse_lazy
@@ -147,17 +148,25 @@ class LatestRate(TemplateView):
         context["rates"] = rates
         return context
 
-
-class EditRate(UpdateView):
+    
+class EditRate(UserPassesTestMixin, UpdateView):
     template_name = 'edit-rate.html'
     model = Rate
     fields = 'amount', 'source', 'currency_type', 'type'
     success_url = reverse_lazy('rate:list')
 
+    def test_func(self):
+        return self.request.user.is_authenticated and\
+            self.request.user.is_superuser
 
-class DeleteRate(DeleteView):
+
+class DeleteRate(UserPassesTestMixin, DeleteView):
     model = Rate
     success_url = reverse_lazy('rate:list')
 
     def get(self, *args, **kwargs):
         return self.post(*args, **kwargs)
+
+    def test_func(self):
+        return self.request.user.is_authenticated and \
+               self.request.user.is_superuser
