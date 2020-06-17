@@ -17,22 +17,25 @@
             </li>
               <li class="nav-item {% url 'rate:latest-rates' as latest_rate_url %}{% if request.path == latest_rate_url %}active{% endif %}">
                   <a class="nav-link" href="{% url 'rate:latest-rates' %}">Latest Rates</a>
-              </li>
+            </li>
+              <li class="nav-item {{ 'account:contact-us' }}">
+                  <a class="nav-link" href="{% url 'account:contact-us' %}">Contact Us</a>
+            </li>
             {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'account:my-profile' %}">My Profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'account:logout' %}">Logout</a>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="#">Sign Up</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'account:login' %}">Login</a>
+				</li>
+			{% endif %}
+		</ul>
+	</div>
 </nav>

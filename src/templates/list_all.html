@@ -17,6 +17,10 @@
         <th>Источник</th>
         <th>Валюта</th>
         <th>Продажа/покупка</th>
+        {% if user.is_superuser %}
+				<th scope="col"> Редактировать</th>
+				<th scope="col"> Удалить </th>
+        {% endif %}
     </tr>
 </thead>
 
@@ -29,6 +33,10 @@
         <td>{{ rate.get_source_display|title }}</td>
         <td>{{ rate.get_currency_type_display|upper }}</td>
         <td>{{ rate.get_type_display|title }}</td>
+        {% if user.is_superuser %}
+						<td><a class="btn btn-dark" href="{% url 'rate:edit' pk=rate.id %}">Edit</a></td>
+						<td><a class="btn btn-dark" href="{% url 'rate:delete' pk=rate.id %}">Delete</a></td>
+					{% endif %}
     </tr>
    {% endfor %}
    </tbody>
