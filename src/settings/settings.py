@@ -8,9 +8,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'fp_grwa77&d75%01dziwslea2*t*(fmas6rrbyg+nbr%k$$wr8'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -126,3 +126,8 @@ EMAIL_HOST_PASSWORD = '123456hillel'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+try:
+    from settings.settings_local import *  # noqa
+except ImportError:
+    print('ImportError settings_local\n' * 5)  # noqa

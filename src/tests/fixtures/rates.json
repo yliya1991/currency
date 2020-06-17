@@ -1,0 +1,35 @@
+[
+ {
+    "model": "rate.rate",
+    "pk": 1432,
+    "fields": {
+      "created": "2016-12-29T22:00:00Z",
+      "amount": "27.70",
+      "source": 1,
+      "currency_type": 1,
+      "type": 1
+    }
+  },
+  {
+    "model": "rate.rate",
+    "pk": 1433,
+    "fields": {
+      "created": "2016-12-29T22:00:00Z",
+      "amount": "28.40",
+      "source": 1,
+      "currency_type": 2,
+      "type": 2
+    }
+  },
+  {
+    "model": "rate.rate",
+    "pk": 1434,
+    "fields": {
+      "created": "2016-12-29T22:00:00Z",
+      "amount": "29.20",
+      "source": 1,
+      "currency_type": 2,
+      "type": 1
+    }
+  }
+]

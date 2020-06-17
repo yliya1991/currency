@@ -5,3 +5,6 @@ __pycache__/
 *.log
 celerybeat-schedule
 celerybeat.pid
+*.sqlite3
+tmp/
+settings_local.py
