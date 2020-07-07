@@ -97,4 +97,3 @@ def test_new_user(django_user_model):
 def test_with_specific_settings(settings):
     settings.USE_TZ = True
     assert settings.USE_TZ
-
