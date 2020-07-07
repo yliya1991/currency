@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'fp_grwa77&d75%01dziwslea2*t*(fmas6rrbyg+nbr%k$$wr8'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -130,4 +130,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 try:
     from settings.settings_local import *  # noqa
 except ImportError:
-    print('ImportError settings_local\n' * 5)  # noqa
+    print('ImportError settings_local\n')  # noqa

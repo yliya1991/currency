@@ -168,5 +168,4 @@ class DeleteRate(UserPassesTestMixin, DeleteView):
         return self.post(*args, **kwargs)
 
     def test_func(self):
-        return self.request.user.is_authenticated and \
-               self.request.user.is_superuser
+        return self.request.user.is_superuser
