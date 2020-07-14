@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Sign Up
+{% endblock title %}
+
+{% block content %}
+    Sign Up
+    <div class="row">
+        <div class="col">
+            <form method="post" action="{% url 'account:sign-up' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
