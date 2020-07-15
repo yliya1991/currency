@@ -11,8 +11,6 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.views.generic import CreateView, UpdateView
 
-import forms
-
 
 class ContactUs(CreateView):
     template_name = 'contact-us.html'
@@ -36,10 +34,11 @@ class MyProfile(LoginRequiredMixin, UpdateView):
         obj = self.get_queryset().get(id=self.request.user.id)
         return obj
 
+    @property
     def clean_new_avatar(self):
         new_avatar = self.cleaned_data.get('new_avatar')
         if new_avatar is not None and 'image' not in new_avatar.content_type:
-            raise forms.ValidationError('Wrong format of picture')
+            raise forms.ValidationError('Wrong format of picture') # noqa F821 undefined name 'forms'
         return new_avatar
 
     def save(self):
