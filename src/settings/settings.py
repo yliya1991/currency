@@ -1,6 +1,5 @@
 import os
 
-import crontab as crontab
 from celery.schedules import crontab
 from django.urls import reverse_lazy
 
