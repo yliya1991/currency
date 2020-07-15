@@ -11,6 +11,8 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.views.generic import CreateView, UpdateView
 
+import forms
+
 
 class ContactUs(CreateView):
     template_name = 'contact-us.html'
@@ -27,12 +29,21 @@ class ContactUs(CreateView):
 class MyProfile(LoginRequiredMixin, UpdateView):
     template_name = 'user-edit.html'
     model = User
-    fields = 'email', 'first_name', 'last_name'
+    fields = 'email', 'first_name', 'last_name', 'avatar'
     success_url = reverse_lazy('index')
 
     def get_object(self, queryset=None):
         obj = self.get_queryset().get(id=self.request.user.id)
         return obj
+
+    def clean_new_avatar(self):
+        new_avatar = self.cleaned_data.get('new_avatar')
+        if new_avatar is not None and 'image' not in new_avatar.content_type:
+            raise forms.ValidationError('Wrong format of picture')
+        return new_avatar
+
+    def save(self):
+        return self.cleaned_data
 
 
 class SignUp(CreateView):
