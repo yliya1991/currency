@@ -1,4 +1,3 @@
-
 amqp==2.5.2
 attrs==19.3.0
 automium==0.2.6
