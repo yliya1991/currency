@@ -1,0 +1,105 @@
+version: "3.3"
+
+services:
+  memcached:
+    image: memcached:latest
+    env_file: .env
+    hostname: ${MEMCACHED_HOST}
+    container_name: memcached
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3.8-rc-management
+    container_name: rabbitmq
+    env_file: .env
+    hostname: ${RABBITMQ_DEFAULT_HOST}
+    restart: always
+
+  backend:
+    build: .
+    container_name: backend
+    # command: tail -f /dev/null
+    env_file: .env
+    command: ./commands/wsgi/${SERVER}.sh
+    restart: always
+    depends_on:
+      - memcached
+      - rabbitmq
+    volumes:
+    - ./:/srv/project
+
+  celery:
+    build: .
+    container_name: celery
+    env_file: .env
+    command: ./commands/celery/start_celery.sh
+    restart: always
+    depends_on:
+      - memcached
+      - rabbitmq
+      - backend
+    volumes:
+      - ./:/srv/project
+
+  celerybeat:
+    build: .
+    container_name: celerybeat
+    env_file: .env
+    command: ./commands/celery/start_celerybeat.sh
+    restart: always
+    depends_on:
+      - memcached
+      - rabbitmq
+      - backend
+    volumes:
+      - ./:/srv/project
+
+  postgres:
+    image: postgres:12.3-alpine
+    container_name: postgres
+    hostname: ${POSTGRES_HOST}
+    env_file: .env
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx:1.17.4-alpine
+    container_name: nginx
+    volumes:
+      - ./nginx:/etc/nginx/conf.d/
+      - ./static_content:/etc/nginx/static_content/
+      - /etc/apache2/:/etc/apache2/
+    ports:
+      - "8080:8080"
+      - "443:443"
+    depends_on:
+      - backend
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+  flower:
+    build: .
+    container_name: flower
+    env_file: .env
+    command: celery flower -A settings --port=${FLOWER_PORT} --workdir=/srv/project/src
+    volumes:
+      - ./:/srv/project
+    depends_on:
+      - backend
+    restart: always
+    ports:
+      - ${FLOWER_PORT}:${FLOWER_PORT}
+
+volumes:
+  db_data: {}
+  portainer_data:

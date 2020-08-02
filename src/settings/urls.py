@@ -8,6 +8,11 @@ from django.views.generic import TemplateView
 
 from settings import views
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
@@ -32,6 +37,8 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     path('api/v1/rate/', include('rate.api.urls')),
     path('api/v1/user/', include('account.api.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
 ]
 
 if settings.DEBUG:
