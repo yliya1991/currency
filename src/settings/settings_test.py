@@ -1,6 +1,6 @@
 from settings.settings import *
 
-SECRET_KEY = 'fp_grwa77&d75%01dziwslea2*t*(fmas6rrbyg+nbr%k$$wr8'
+SECRET_KEY = 'x4u^#b!c)-!fbokvl1#(yaf!z_5k$4)do^(3cghe2)8qftja3y'
 DEBUG = False
 ALLOWED_HOSTS = ['*']
 

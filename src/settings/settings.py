@@ -124,6 +124,12 @@ AUTH_USER_MODEL = 'account.User'
 
 # CELERY_BROKER_URL = 'amqp://localhost'
 
+CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}:5672//'.format(
+    os.environ.get('RABBITMQ_DEFAULT_USER', 'guest'),
+    os.environ.get('RABBITMQ_DEFAULT_PASS', 'guest'),
+    os.environ.get('RABBITMQ_DEFAULT_HOST', 'localhost')
+)
+
 CELERY_BEAT_SCHEDULE = {
     'parse': {
         'task': 'rate.tasks.parse',
@@ -148,3 +154,4 @@ try:
     from settings.settings_local import *  # noqa
 except ImportError:
     print('ImportError settings_local\n')  # noqa
+

@@ -8,3 +8,9 @@ celerybeat.pid
 *.sqlite3
 tmp/
 settings_local.py
+*.json
+/tmp/
+*.gz
+/src/db.sqlite3
+.env
+static_content/
